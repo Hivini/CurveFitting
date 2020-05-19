@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
+import CurveFittingChart from "./components/CurveFittingChart/CurveFittingChart.lazy";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Example chart
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+        <CurveFittingChart/>
     </div>
   );
 }
