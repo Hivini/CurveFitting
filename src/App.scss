@@ -1,0 +1,111 @@
+$primary-color: #212529;
+$secondary-color: #e9ecef;
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.button-big {
+  padding: 1rem;
+  font-size: 1.1rem;
+  background: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.primary {
+  background: $primary-color;
+  color: white;
+  border: none;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.primary:hover {
+  background-color: darken($primary-color, 5);
+  border: none;
+  box-shadow: 0px 5px 0.5rem -2px darken(rgba($primary-color, 0.5), 10);
+}
+
+.secondary {
+  background: $secondary-color;
+  color: #212529;
+  border: none;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.secondary:hover {
+  background-color: darken($secondary-color, 5);
+  border: none;
+  box-shadow: 0px 5px 0.5rem -2px darken(rgba($secondary-color, 0.8), 10);
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 2rem;
+}
+.button-submit {
+  display: none;
+}
+
+.step-section {
+  transition: opacity 0.5s;
+  opacity: 1;
+}
+
+.step-section.hide {
+  opacity: 0;
+}
+
+input {
+  border-radius: 0.3rem;
+  border: 1px darken($secondary-color, $amount: 10) solid;
+  padding: 0.7rem;
+  margin: 0.4rem;
+  font-size: 1.5rem;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-weight: bold;
+}
+
+.col-2 {
+  display: flex;
+  justify-content: space-around;
+}

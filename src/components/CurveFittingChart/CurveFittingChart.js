@@ -1,33 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './CurveFittingChart.css';
-import {Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {
+  ScatterChart,
+  CartesianGrid,
+  Tooltip,
+  XAxis,
+  YAxis,
+  Scatter,
+} from 'recharts';
 
-const data = [
-    {x: 1, y: 2},
-    {x: 2, y: 5},
-    {x: 3, y: 9},
-    {x: 4, y: 4},
-    {x: 8, y: 8},
-];
-
-const x = [1, 2, 3, 4, 8];
-
-const CurveFittingChart = () => (
-    <LineChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-            top: 5, right: 30, left: 20, bottom: 5,
-        }}
-    >
-        <XAxis dataKey='x' type='number' ticks={x}/>
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="y" stroke="#8884d8" activeDot={{ r: 2 }} />
-    </LineChart>
+const CurveFittingChart = (props) => (
+  <ScatterChart
+    width={400}
+    height={400}
+    margin={{
+      top: 20,
+      right: 20,
+      bottom: 20,
+      left: 20,
+    }}
+  >
+    <CartesianGrid />
+    <XAxis type='number' dataKey='x' name='x' />
+    <YAxis type='number' dataKey='y' name='y' />
+    <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+    <Scatter name='Preview' data={props.data} fill='#212529' />
+  </ScatterChart>
 );
 
 CurveFittingChart.propTypes = {};
