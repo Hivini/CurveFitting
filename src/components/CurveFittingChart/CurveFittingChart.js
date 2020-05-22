@@ -3,26 +3,18 @@ import PropTypes from 'prop-types';
 import './CurveFittingChart.css';
 import {Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 
-const data = [
-    {x: 1, y: 2},
-    {x: 2, y: 5},
-    {x: 3, y: 9},
-    {x: 4, y: 4},
-    {x: 8, y: 8},
-];
 
-const x = [1, 2, 3, 4, 8];
 
-const CurveFittingChart = () => (
+const CurveFittingChart = (props) => (
     <LineChart
         width={500}
         height={300}
-        data={data}
+        data={props.data}
         margin={{
             top: 5, right: 30, left: 20, bottom: 5,
         }}
     >
-        <XAxis dataKey='x' type='number' ticks={x}/>
+        <XAxis dataKey='x' type='number' ticks={props.x}/>
         <YAxis />
         <Tooltip />
         <Legend />
