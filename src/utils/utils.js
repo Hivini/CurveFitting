@@ -1,8 +1,14 @@
-export function processEquation(equationString) {
-    console.log(equationString);
-}
-
 export function polinomialFit(grade, xPoints, yPoints) {
+    if (grade < 0) throw Error("There are not negative grades");
+
+    if (grade === 0) {
+        let sumOfY = 0;
+        for (let i = 0; i < yPoints.length; i++) {
+            sumOfY += yPoints[i];
+        }
+        let coefficient = sumOfY / yPoints.length;
+        return [coefficient];
+    }
     let equations = [];
     for (let i = 0; i <= grade; i++) {
         let coefficients = [];
@@ -21,8 +27,7 @@ export function polinomialFit(grade, xPoints, yPoints) {
         coefficients.push(sumOfProduct);
         equations.push(coefficients);
     }
-    console.log(equations);
-    console.log(gauss(equations));
+    return gauss(equations);
 }
 
 function gauss(matrix) {
