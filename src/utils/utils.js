@@ -1,3 +1,19 @@
+import { create, all } from 'mathjs'
+
+const config = { };
+const math = create(all, config);
+const parser = math.parser();
+
+export function mathEvaluate(grade, exp) {
+    parser.evaluate('f(x) = ' + exp);
+    let points = [];
+    for (let i = 0; i < grade + 1; i++) {
+        let pair = {x: i, y: parser.evaluate('f(' + i.toString() + ')')};
+        points.push(pair);
+    }
+    return points;
+}
+
 export function polinomialFit(grade, xPoints, yPoints) {
     if (grade < 0) throw Error("There are not negative grades");
 
