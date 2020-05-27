@@ -61,6 +61,15 @@ $secondary-color: #e9ecef;
   box-shadow: 0px 5px 0.5rem -2px darken(rgba($primary-color, 0.5), 10);
 }
 
+.col-2 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button:focus {
+  outline: none;
+}
+
 .secondary {
   background: $secondary-color;
   color: #212529;
@@ -100,12 +109,70 @@ input {
   font-size: 1.5rem;
 }
 
+.small {
+  font-size: 1rem;
+  width: 3rem;
+}
+
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   font-weight: bold;
 }
 
-.col-2 {
+.center {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+select {
+  margin-top: 0.3rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  font-size: 1.2rem;
+  border: 0 !important;
+  background: $primary-color;
+  background-image: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: $primary-color;
+  overflow: hidden;
+  border-radius: 0.25em;
+}
+select {
+  flex: 1;
+  padding: 0 0.5em;
+  color: #fff;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  margin-top: 0.3rem;
+  background: $primary-color;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: 0.25s all ease;
+  -o-transition: 0.25s all ease;
+  transition: 0.25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color: #fff;
 }

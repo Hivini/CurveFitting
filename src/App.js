@@ -22,16 +22,7 @@ export default class App extends Component {
           <button
             className='button-big primary'
             onClick={() => {
-              this.setState({
-                dataLoadType: 'csv',
-              });
-            }}
-          >
-            Importar .csv
-          </button>
-          <button
-            className='button-big primary'
-            onClick={() => {
+              window.scrollTo(0, 250);
               this.setState({
                 dataLoadType: 'input',
               });
