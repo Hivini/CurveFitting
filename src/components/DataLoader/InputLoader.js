@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-transition-group';
 import CurveFittingChart from '../CurveFittingChart/CurveFittingChart.lazy';
 import '../../utils/utils';
 import {
@@ -25,6 +24,7 @@ export default class InputLoader extends Component {
       n: 10,
       x0: 0,
       xf: 100,
+      expression: '',
     };
   }
 
@@ -42,30 +42,35 @@ export default class InputLoader extends Component {
   handleCalculate = (event) => {
     event.preventDefault();
 
+    if (this.state.n  < 2) {
+      alert('Se necesitan al menos 2 puntos');
+      return;
+    }
+
     var exp = '';
 
-    if (this.state.type == 'pol') {
-      if (this.state.x.length <= this.state.grade) {
+    if (this.state.type === 'pol') {
+      if (this.state.x.length <= this.state.grado) {
         alert('necesitas mas puntos');
         return;
       }
-      var polargs = polinomialFit(this.state.grado, this.state.x, this.state.y);
+      let polargs = polinomialFit(this.state.grado, this.state.x, this.state.y);
       exp = createExpression('pol', polargs);
     }
-    if (this.state.type == 'log') {
+    if (this.state.type === 'log') {
       if (this.state.x.length <= 2) {
         alert('necesitas mas puntos');
         return;
       }
-      if (this.state.x0 == 0) {
+      if (this.state.x0 === 0) {
         alert('no puede ser 0 el x0');
         return;
       }
       var logargs = [logFit(this.state.x, this.state.y)];
       exp = createExpression('log', logargs);
     }
-    if (this.state.type == 'origin') {
-      if (this.state.x.length <= 2) {
+    if (this.state.type === 'origin') {
+      if (this.state.x.length < 2) {
         alert('necesitas mas puntos');
         return;
       }
@@ -73,6 +78,8 @@ export default class InputLoader extends Component {
       var originargs = [originFit(this.state.x, this.state.y)];
       exp = createExpression('origin', originargs);
     }
+
+    this.setState({expression: exp});
 
     let calculated_points = mathEvaluate(
       this.state.n,
@@ -90,31 +97,31 @@ export default class InputLoader extends Component {
   };
 
   handleChange = (event) => {
-    if (event.target.name == 'x') {
+    if (event.target.name === 'x') {
       this.setState({
         current_x: event.target.value,
       });
-    } else if (event.target.name == 'y') {
+    } else if (event.target.name === 'y') {
       this.setState({
         current_y: event.target.value,
       });
-    } else if (event.target.name == 'n') {
+    } else if (event.target.name === 'n') {
       this.setState({
         n: event.target.value,
       });
-    } else if (event.target.name == 'x0') {
+    } else if (event.target.name === 'x0') {
       this.setState({
         x0: event.target.value,
       });
-    } else if (event.target.name == 'xf') {
+    } else if (event.target.name === 'xf') {
       this.setState({
         xf: event.target.value,
       });
-    } else if (event.target.name == 'grado') {
+    } else if (event.target.name === 'grado') {
       this.setState({
         grado: event.target.value,
       });
-    } else if (event.target.name == 'type') {
+    } else if (event.target.name === 'type') {
       this.setState({
         type: event.target.value,
       });
@@ -150,6 +157,14 @@ export default class InputLoader extends Component {
               />
               <input type='submit' value='ingresar' className='button-submit' />
             </form>
+            <button
+                className='button-big secondary'
+                onClick={() => {
+                  window.location.reload();
+                }}
+            >
+              Reset Puntos
+            </button>
           </div>
           <hr />
           <form onSubmit={this.handleCalculate}>
@@ -163,13 +178,13 @@ export default class InputLoader extends Component {
                     value={this.type}
                   >
                     <option value='pol'>Polinomial</option>
-                    <option value='log'>Logística</option>
+                    <option value='log'>Logarítmica</option>
                     <option value='origin'>Lineal por el origen</option>
                   </select>
                 </div>
               </div>
               <div class='center'>
-                {this.state.type == 'pol' && (
+                {this.state.type === 'pol' && (
                   <div>
                     Grado
                     <input
@@ -230,23 +245,27 @@ export default class InputLoader extends Component {
           </form>
         </div>
         <div className='center'>
+          <h2>{this.state.expression}</h2>
+        </div>
+        <div className='center'>
           <CurveFittingChart
-            data={{
-              xs: {
-                y: 'x',
-                yr: 'xr',
-              },
-              colors: {
-                y: '#212529',
-              },
-              columns: [
-                ['x', ...this.state.x],
-                ['y', ...this.state.y],
-                ['xr', ...this.state.xr],
-                ['yr', ...this.state.yr],
-              ],
-            }}
-          ></CurveFittingChart>
+          data={{
+            xs: {
+              y: 'x',
+              yr: 'xr',
+            },
+            colors: {
+              y: '#212529',
+            },
+            columns: [
+              ['x', ...this.state.x],
+              ['y', ...this.state.y],
+              ['xr', ...this.state.xr],
+              ['yr', ...this.state.yr],
+            ],
+            type: 'spline'
+          }}
+        />
         </div>
       </div>
     );

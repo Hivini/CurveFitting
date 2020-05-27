@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CurveFittingChart from './components/CurveFittingChart/CurveFittingChart.lazy';
 import './App.scss';
 import CsvLoader from './components/DataLoader/CsvLoader';
 import InputLoader from './components/DataLoader/InputLoader';
@@ -15,8 +14,7 @@ export default class App extends Component {
       <div className='App'>
         <h1>Regresiones</h1>
         <p>
-          Calculadora de regresión lineal, cuadrática, cúbica, logística y
-          exponencial.
+          Calculadora de regresión de constante, lineal, lineal por origen, polinomial y logarítmica.
         </p>
         <div className='button-container'>
           <button
@@ -33,8 +31,8 @@ export default class App extends Component {
         </div>
 
         <section>
-          {this.state.dataLoadType == 'csv' && <CsvLoader></CsvLoader>}
-          {this.state.dataLoadType == 'input' && <InputLoader></InputLoader>}
+          {this.state.dataLoadType === 'csv' && <CsvLoader></CsvLoader>}
+          {this.state.dataLoadType === 'input' && <InputLoader></InputLoader>}
         </section>
       </div>
     );

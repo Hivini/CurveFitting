@@ -5,26 +5,30 @@ const math = create(all, config);
 const parser = math.parser();
 
 export function createExpression(type, args) {
-  //Crea una expresion tipo string para darsela a mathEvaluate
-  //type (string): enum de log, pol, origin
-  //args (array): array con coeficientes de polinomio, si es log o origin, es el único coeficiente el primer elemento.
+  // Crea una expresion tipo string para darsela a mathEvaluate
+  // type (string): enum de log, pol, origin
+  // args (array): array con coeficientes de polinomio, si es log o origin, es el único coeficiente el primer elemento.
 
   let exp = '';
 
   switch (type) {
     case 'pol':
       for (let i = 0; i < args.length; i++) {
-        exp += args[i] + '*x^' + i + ' ';
+        if (i !== 0) {
+          exp += args[i].toFixed(3) + '*x^' + i + ' ';
+        } else {
+          exp += args[i].toFixed(3) + ' ';
+        }
         if (i !== args.length - 1) {
           exp += '+ ';
         }
       }
       break;
     case 'log':
-      exp += args[0] + '*log(x)';
+      exp += args[0].toFixed(3) + '*log(x)';
       break;
     case 'origin':
-      exp += args[0] + '*x';
+      exp += args[0].toFixed(3) + '*x';
       break;
     default:
       break;
@@ -39,10 +43,15 @@ export function mathEvaluate(npoints, exp, x0, xf) {
 
   let x = [];
   let y = [];
+  let step;
 
-  let step = (xf - x0) / npoints;
+  if (xf - x0 + 1 < npoints) {
+    step = (xf - x0) / (npoints);
+  } else {
+    step = (xf - x0) / (npoints - 1);
+  }
 
-  for (let i = parseFloat(x0); i < xf; i += parseFloat(step)) {
+  for (let i = parseFloat(x0); i <= xf; i += step) {
     x.push(i);
     y.push(parser.evaluate('f(' + i.toString() + ')'));
   }
